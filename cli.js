@@ -1,3 +1,19 @@
 #!/usr/bin/env node
 const fs = require('fs')
-console.log(JSON.parse(fs.readFileSync('/github/workflow/event.json').toString()))
+const { execSync } = require('child_process')
+const event = JSON.parse(fs.readFileSync('/github/workflow/event.json').toString())
+
+let messages = event.commits.map(commit => commit.message)
+
+let version = 'patch'
+if (messages.map(message => message.includes('BREAKING CHANGE')).includes(true)) {
+  version = 'major' 
+} else if (messages.map(message => message.toLowerCase().startsWith('feat')).includes(true)) {
+  version = 'minor'
+}
+
+process.stdout.write(execSync(`npm version ${version}`))
+process.stdout.write(execSync(`npm publish --access=public`))
+process.stdout.write(execSync(`git push --tags`))
+
+// npm version minor && npm publish --access=public && git push --tags
