@@ -1,6 +1,6 @@
 {
   "name": "merge-release",
-  "version": "2.88.0",
+  "version": "1.9.2",
   "description": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
