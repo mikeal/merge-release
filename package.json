@@ -1,5 +1,5 @@
 {
-  "name": "auto-release",
+  "name": "merge-release",
   "version": "1.3.0",
   "description": "",
   "main": "index.js",
