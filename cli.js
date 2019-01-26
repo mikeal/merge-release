@@ -17,7 +17,7 @@ let version = 'patch'
 
 let pkg = require('./package.json')
 let current = execSync(`npm view ${pkg.name} version`).toString()
-process.stdout.write(execSync(`npm version ${current} --allow-same-version`))
+process.stdout.write(execSync(`npm version --allow-same-version ${current} `))
 process.stdout.write(execSync(`npm version ${version}`))
 process.stdout.write(execSync(`npm publish --access=public`))
 process.stdout.write(execSync(`git push --tags`))
