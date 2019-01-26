@@ -33,6 +33,6 @@ action "Publish Filter" {
 
 action "NPM Publish" {
   needs = "Publish Filter" {
-  uses = "mikeal/auto-release@master"
+  uses = "mikeal/merge-release@master"
   secrets = ["NPM_AUTH_TOKEN"]
 }

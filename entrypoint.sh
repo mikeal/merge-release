@@ -12,4 +12,4 @@ if [ -n "$NPM_AUTH_TOKEN" ]; then
   chmod 0600 "$NPM_CONFIG_USERCONFIG"
 fi
 
-sh -c "npx auto-release $*"
+sh -c "npx merge-release $*"

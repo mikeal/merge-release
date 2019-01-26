@@ -1,8 +1,8 @@
 FROM node:10-slim
 
 LABEL version="1.0.0"
-LABEL repository="http://github.com/mikeal/auto-release"
-LABEL homepage="http://github.com/auto-release"
+LABEL repository="http://github.com/mikeal/merge-release"
+LABEL homepage="http://github.com/merge-release"
 LABEL maintainer="Mikeal Rogers <mikeal.rogers@gmail.com>"
 
 LABEL com.github.actions.name="Automated releases for npm packages."
