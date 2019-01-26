@@ -1,3 +1,3 @@
+#!/usr/bin/env node
 const fs = require('fs')
-console.log(process.env)
-console.log(fs.readFileSync('/github/workflow/event.json').toString())
+console.log(JSON.parse(fs.readFileSync('/github/workflow/event.json').toString()))
