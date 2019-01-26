@@ -32,7 +32,7 @@ action "Publish Filter" {
 }
 
 action "NPM Publish" {
-  needs = "Publish Filter" 
+  needs = "Publish Filter"
   uses = "mikeal/merge-release@master"
   secrets = ["GITHUB_TOKEN", "NPM_AUTH_TOKEN"]
 }
