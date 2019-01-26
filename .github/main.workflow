@@ -1,6 +1,6 @@
 workflow "Build and Publish" {
   on = "push"
-  resolves = "Docker Publish"
+  resolves = "NPM Publish"
 }
 
 action "Shell Lint" {
