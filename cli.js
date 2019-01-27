@@ -1,6 +1,13 @@
 #!/usr/bin/env node
+console.log(process.argv)
+
 const fs = require('fs')
 const { execSync } = require('child_process')
+
+/* Configure git */
+
+//fs.writeFileSync('git-credentials')
+//execSync('git 
 
 const event = JSON.parse(fs.readFileSync('/github/workflow/event.json').toString())
 

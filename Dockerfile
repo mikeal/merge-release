@@ -1,5 +1,7 @@
 FROM node:10-slim
 
+RUN "apt-get install git"
+
 LABEL version="1.0.0"
 LABEL repository="http://github.com/mikeal/merge-release"
 LABEL homepage="http://github.com/merge-release"
@@ -12,6 +14,7 @@ LABEL com.github.actions.color="red"
 COPY LICENSE README.md /
 
 COPY "entrypoint.sh" "/entrypoint.sh"
+COPY cli.js /cli.js
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["help"]
 
