@@ -1,6 +1,6 @@
 workflow "Build and Publish" {
   on = "push"
-  resolves = "NPM Publish"
+  resolves = ["Publish"]
 }
 
 action "Shell Lint" {
@@ -8,13 +8,8 @@ action "Shell Lint" {
   args = "entrypoint.sh"
 }
 
-action "Docker Lint" {
-  uses = "docker://replicated/dockerfilelint"
-  args = ["Dockerfile"]
-}
-
 action "Build" {
-  needs = ["Shell Lint", "Docker Lint"]
+  needs = ["Shell Lint"]
   uses = "actions/docker/cli@master"
   args = "build -t npm ."
 }
@@ -31,7 +26,7 @@ action "Publish Filter" {
   args = "branch master"
 }
 
-action "NPM Publish" {
+action "Publish" {
   needs = "Publish Filter"
   uses = "mikeal/merge-release@master"
   secrets = ["GITHUB_TOKEN", "NPM_AUTH_TOKEN"]
