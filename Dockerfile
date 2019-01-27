@@ -1,4 +1,4 @@
-FROM node:10-slim
+FROM node
 
 RUN "apt-get install git"
 
