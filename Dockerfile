@@ -1,8 +1,5 @@
-FROM debian:stretch
-FROM node:10
-
-RUN "export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:./node_modules/.bin"
-RUN "apt-get update && apt-get install -y git"
+FROM node:10-slim
+FROM mikeal/dev:latest 
 
 LABEL version="1.0.0"
 LABEL repository="http://github.com/mikeal/merge-release"
