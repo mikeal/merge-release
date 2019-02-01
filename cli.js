@@ -28,7 +28,8 @@ process.stdout.write(execSync(`npm version --allow-same-version=true --git-tag-v
 let newVersion = execSync(`npm version --git-tag-version=false ${version}`).toString()
 console.log(newVersion)
 process.stdout.write(execSync(`npm publish --access=public`))
+/*
 process.stdout.write(execSync(`git tag -a ${newVersion} -m "Created by merge-release.\n\n##Changelog:\n${messages.join('\n')}"`))
 process.stdout.write(execSync(`git push --tags`))
-
+*/
 // npm version minor && npm publish --access=public && git push --tags

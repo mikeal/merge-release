@@ -1,5 +1,4 @@
 FROM node:10-slim
-FROM mikeal/dev:latest 
 
 LABEL version="1.0.0"
 LABEL repository="http://github.com/mikeal/merge-release"
