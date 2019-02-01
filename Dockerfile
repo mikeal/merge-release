@@ -12,7 +12,7 @@ LABEL com.github.actions.color="red"
 COPY LICENSE README.md /
 
 COPY "entrypoint.sh" "/entrypoint.sh"
-COPY cli.js /.merge-release-run.js
+COPY cli.js /merge-release-run.js
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["help"]
 
