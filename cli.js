@@ -20,8 +20,6 @@ if (messages.map(message => message.includes('BREAKING CHANGE')).includes(true))
   version = 'minor'
 }
 
-let version = 'patch'
-
 let pkg = require('./package.json')
 let current = execSync(`npm view ${pkg.name} version`).toString()
 process.stdout.write(execSync(`npm version --allow-same-version=true --git-tag-version=false ${current} `))
