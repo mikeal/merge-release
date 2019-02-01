@@ -6,7 +6,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "merge-release": "./cli.js"
+    "merge-release": "./merge-release-run.js"
   },
   "repository": {
     "type": "git",
