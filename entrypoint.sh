@@ -12,7 +12,7 @@ if [ -n "$NPM_AUTH_TOKEN" ]; then
   chmod 0600 "$NPM_CONFIG_USERCONFIG"
 fi
 
-if [ $GITHUB_REPOSITORY == "mikeal/merge-release" ]
+if [ "$GITHUB_REPOSITORY" == "mikeal/merge-release" ]
 then
   sh -c "node /merge-release-run.js $*"
 else
