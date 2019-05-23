@@ -14,7 +14,7 @@ fi
 
 if [ "$GITHUB_REPOSITORY" = "mikeal/merge-release" ]
 then
-  sh -c "node /merge-release-run.js $*"
+  sh -c "node merge-release-run.js $*"
 else
   sh -c "npx merge-release $*"
 fi
