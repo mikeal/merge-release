@@ -8,10 +8,16 @@ action "Shell Lint" {
   args = "entrypoint.sh"
 }
 
-action "Build" {
+action "Build Docker" {
   needs = ["Shell Lint"]
   uses = "actions/docker/cli@master"
   args = "build -t npm ."
+}
+
+action "Build" {
+  needs = ["Build Docker"]
+  uses = "actions/npm@master"
+  args = "install"
 }
 
 action "Docker Tag" {
