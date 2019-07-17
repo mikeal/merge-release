@@ -6,7 +6,7 @@ This Action publishes a package to npm. It is meant to be used on every successf
 you'll need to configured that workflow yourself. You can look to the `.github/main.workflow` file in this
 project as an example.
 
-### Flow
+### Workflow
 
 * Check for the latest version number published to npm.
 * Lookup all commits between the git commit that triggered the action and the latest publish.
