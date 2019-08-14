@@ -1,0 +1,29 @@
+on: push
+name: Build and Publish
+jobs:
+  shellLint:
+    name: Shell Lint
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Shell Lint
+      uses: actions/bin/shellcheck@master
+      with:
+        args: entrypoint.sh
+    - name: Build Docker
+      uses: actions/docker/cli@master
+      with:
+        args: build -t npm .
+    - name: Build
+      uses: actions/npm@master
+      with:
+        args: install
+    - name: Publish Filter
+      uses: actions/bin/filter@master
+      with:
+        args: branch master
+    - name: Publish
+      uses: mikeal/merge-release@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
