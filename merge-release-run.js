@@ -50,5 +50,6 @@ const run = async () => {
   let newVersion = execSync(`npm version --git-tag-version=false ${version}`).toString()
   console.log(newVersion)
   process.stdout.write(execSync(`npm publish --access=public`))
+  process.stdout.write(execSync(`git checkout package.json`))
 }
 run()
