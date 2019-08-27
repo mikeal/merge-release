@@ -52,4 +52,4 @@ const run = async () => {
   process.stdout.write(execSync(`npm publish --access=public`))
   process.stdout.write(execSync(`git checkout package.json`))
 }
-run()
+run().catch(console.error)
