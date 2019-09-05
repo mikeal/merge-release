@@ -15,7 +15,7 @@ const event = JSON.parse(fs.readFileSync('/github/workflow/event.json').toString
 let pkg = require(path.join(process.cwd(), 'package.json'))
 
 const run = async () => {
-  if (!process.env.NPM_TOKEN) throw new Error('Merge-release requires NPM_TOKEN')
+  if (!process.env.NPM_AUTH_TOKEN) throw new Error('Merge-release requires NPM_AUTH_TOKEN')
   let latest
   try {
     latest = await get(pkg.name + '/latest')
@@ -53,4 +53,4 @@ const run = async () => {
   process.stdout.write(execSync(`npm publish --access=public`))
   process.stdout.write(execSync(`git checkout package.json`))
 }
-run().catch(console.error)
+run()
