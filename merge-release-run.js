@@ -50,8 +50,9 @@ const run = async () => {
   process.stdout.write(execSync(`npm version --allow-same-version=true --git-tag-version=false ${current} `))
   let newVersion = execSync(`npm version --git-tag-version=false ${version}`).toString()
   console.log(newVersion)
+  process.stdout.write(execSync(`git commit -a --amend --no-edit`))
   process.stdout.write(execSync(`npm publish --access=public`))
-  process.stdout.write(execSync(`git checkout package.json`))
+  process.stdout.write(execSync(`git push`))
   await git.addTag(newVersion)
   await git.pushTags('origin')
 }
