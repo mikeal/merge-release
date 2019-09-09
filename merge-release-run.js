@@ -46,32 +46,13 @@ const run = async () => {
     version = 'minor'
   }
 
-  const run = str => process.stdout.write(execSync(str))
+  const runExec = str => process.stdout.write(execSync(str))
 
-  /* configure git */
-  const { GITHUB_ACTOR, GITHUB_TOKEN, GITHUB_REPOSITORY } = process.env
-  const remote = `https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git`
-  console.log({ remote })
-  run(`git remote add publish ${remote}`)
-  run(`git config user.name "Merge Release"`)
-  run(`git config user.email "merge-release@users.noreply.github.com"`)
-
-  console.log('configured')
   let current = execSync(`npm view ${pkg.name} version`).toString()
-  run(`npm version --allow-same-version=true --git-tag-version=false ${current} `)
+  runExec(`npm version --allow-same-version=true --git-tag-version=false ${current} `)
   let newVersion = execSync(`npm version --git-tag-version=false ${version}`).toString()
   console.log(newVersion)
-
-  run(`git commit -a --amend --no-edit`)
-
-  run(`git fetch`)
-  run(`git branch tmp`)
-  run(`git checkout master`)
-  run(`git merge tmp`)
-
-  run(`npm publish --access=public`)
-  run(`git push publish master`)
-  await git.addTag(newVersion)
-  await git.pushTags('publish')
+  runExec(`npm publish --access=public`)
+  runExec(`git checkout package.json`)
 }
 run()
