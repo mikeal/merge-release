@@ -61,6 +61,11 @@ const run = async () => {
   let newVersion = execSync(`npm version --git-tag-version=false ${version}`).toString()
   console.log(newVersion)
   run(`git commit -a --amend --no-edit`)
+  
+  run(`git branch tmp`)
+  run(`git checkout master`)
+  run(`git merge tmp`)
+  
   run(`npm publish --access=public`)
   run(`git push`)
   await git.addTag(newVersion)
