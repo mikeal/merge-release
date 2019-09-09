@@ -6,8 +6,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-      with:
-        clean: true
     - name: Shell Lint
       uses: actions/bin/shellcheck@master
       with:
@@ -24,7 +22,6 @@ jobs:
       uses: actions/npm@master
       with:
         args: test
-
     - name: Publish Filter
       uses: actions/bin/filter@master
       with:
