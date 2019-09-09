@@ -51,8 +51,7 @@ const run = async () => {
   /* configure git */
   const { GITHUB_ACTOR, GITHUB_TOKEN, GITHUB_REPOSITORY } = process.env
   const remote = `https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git`
-  run(`git remote rm origin`)
-  run(`git remote add origin ${remote}`)
+  run(`git remote add publish ${remote}`)
   run(`git config user.name "Merge Release"`)
   run(`git config user.email "merge-release@users.noreply.github.com"`)
 
@@ -68,8 +67,8 @@ const run = async () => {
   run(`git merge tmp`)
 
   run(`npm publish --access=public`)
-  run(`git push origin master`)
+  run(`git push publish master`)
   await git.addTag(newVersion)
-  await git.pushTags('origin')
+  await git.pushTags('publish')
 }
 run()
