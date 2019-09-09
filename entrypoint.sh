@@ -16,10 +16,10 @@ sh -c "git checkout master"
 
 remote_repo="https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
 
-sh -c 'git config user.name "Automated Publisher"'
-sh -c 'git config user.email "publish-to-github-action@users.noreply.github.com"'
-sh -c 'git remote rm origin'
-sh -c 'git remote add origin "${remote_repo}"'
+git config user.name "Merge Release"
+git config user.email "merge-release@users.noreply.github.com"
+git remote rm origin
+git remote add origin "${remote_repo}"
 
 if [ "$GITHUB_REPOSITORY" = "mikeal/merge-release" ]
 then
