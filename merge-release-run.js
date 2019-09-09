@@ -62,12 +62,13 @@ const run = async () => {
   console.log(newVersion)
   run(`git commit -a --amend --no-edit`)
 
+  run(`git fetch`)
   run(`git branch tmp`)
   run(`git checkout master`)
   run(`git merge tmp`)
 
   run(`npm publish --access=public`)
-  run(`git push`)
+  run(`git push origin master`)
   await git.addTag(newVersion)
   await git.pushTags('origin')
 }
