@@ -46,13 +46,23 @@ const run = async () => {
     version = 'minor'
   }
 
+  const run = str => process.stdout.write(execSync(str))
+
+  /* configure git */
+  const { GITHUB_ACTOR, GITHUB_TOKEN, GITHUB_REPOSITORY } = process.env
+  const remote = `https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git`
+  run(`git remote rm origin`)
+  run(`git remote add origin ${remote}`)
+  run(`git config user.name "Merge Release"`)
+  run(`git config user.email "merge-release@users.noreply.github.com"`)
+
   let current = execSync(`npm view ${pkg.name} version`).toString()
   process.stdout.write(execSync(`npm version --allow-same-version=true --git-tag-version=false ${current} `))
   let newVersion = execSync(`npm version --git-tag-version=false ${version}`).toString()
   console.log(newVersion)
-  process.stdout.write(execSync(`git commit -a --amend --no-edit`))
-  process.stdout.write(execSync(`npm publish --access=public`))
-  process.stdout.write(execSync(`git push`))
+  run(`git commit -a --amend --no-edit`)
+  run(`npm publish --access=public`)
+  run(`git push`)
   await git.addTag(newVersion)
   await git.pushTags('origin')
 }
