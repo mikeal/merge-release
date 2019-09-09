@@ -48,6 +48,15 @@ const run = async () => {
 
   const runExec = str => process.stdout.write(execSync(str))
 
+
+  /* configure git */
+  const { GITHUB_ACTOR, GITHUB_TOKEN, GITHUB_REPOSITORY } = process.env
+  const remote = `https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git`
+  console.log({ remote })
+  runExec(`git remote add publish ${remote}`)
+  runExec(`git config user.name "Merge Release"`)
+  runExec(`git config user.email "merge-release@users.noreply.github.com"`)
+
   let current = execSync(`npm view ${pkg.name} version`).toString()
   runExec(`npm version --allow-same-version=true --git-tag-version=false ${current} `)
   let newVersion = execSync(`npm version --git-tag-version=false ${version}`).toString()
