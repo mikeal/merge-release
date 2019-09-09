@@ -28,8 +28,12 @@ const run = async () => {
   if (latest) {
     if (latest.gitHead === process.env.GITHUB_SHA) return console.log('SHA matches latest release, skipping.')
     if (latest.gitHead) {
-      let logs = await getlog({ from: latest.gitHead, to: process.env.GITHUB_SHA })
-      messages = logs.all.map(r => r.message + '\n' + r.body)
+      try {
+        let logs = await getlog({ from: latest.gitHead, to: process.env.GITHUB_SHA })
+        messages = logs.all.map(r => r.message + '\n' + r.body)
+      } catch (e) {
+        latest = null
+      }
       // g.log({from: 'f0002b6c9710f818b9385aafeb1bde994fe3b370', to: '53a92ca2d1ea3c55977f44d93e48e31e37d0bc69'}, (err, l) => console.log(l.all.map(r => r.message + '\n' + r.body)))
     } else {
       latest = null
