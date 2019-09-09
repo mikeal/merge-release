@@ -48,7 +48,6 @@ const run = async () => {
 
   const runExec = str => process.stdout.write(execSync(str))
 
-
   /* configure git */
   const { GITHUB_ACTOR, GITHUB_TOKEN, GITHUB_REPOSITORY } = process.env
   const remote = `https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git`
