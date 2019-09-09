@@ -51,14 +51,17 @@ const run = async () => {
   /* configure git */
   const { GITHUB_ACTOR, GITHUB_TOKEN, GITHUB_REPOSITORY } = process.env
   const remote = `https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git`
+  console.log({remote})
   run(`git remote add publish ${remote}`)
   run(`git config user.name "Merge Release"`)
   run(`git config user.email "merge-release@users.noreply.github.com"`)
 
+  console.log('configured')
   let current = execSync(`npm view ${pkg.name} version`).toString()
-  process.stdout.write(execSync(`npm version --allow-same-version=true --git-tag-version=false ${current} `))
+  run(`npm version --allow-same-version=true --git-tag-version=false ${current} `)
   let newVersion = execSync(`npm version --git-tag-version=false ${version}`).toString()
   console.log(newVersion)
+
   run(`git commit -a --amend --no-edit`)
 
   run(`git fetch`)
