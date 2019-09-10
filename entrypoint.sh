@@ -23,10 +23,7 @@ remote_repo="https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSIT
 
 git config user.name "Merge Release"
 git config user.email "merge-release@users.noreply.github.com"
-git remote rm origin
-git remote add origin "${remote_repo}"
-git checkout master
-git push -u origin
+git remote add merge-release "${remote_repo}"
 
 if [ "$GITHUB_REPOSITORY" = "mikeal/merge-release" ]
 then
