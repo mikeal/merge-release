@@ -56,7 +56,7 @@ const run = async () => {
   exec(`npm version --allow-same-version=true --git-tag-version=false ${current} `)
   let newVersion = execSync(`npm version --git-tag-version=false ${version}`).toString()
   console.log(newVersion)
-  //exec(`git commit -a --amend --no-edit`)
+  // exec(`git commit -a --amend --no-edit`)
   exec(`git checkout package.json`)
   exec(`npm publish --access=public`)
   // exec(`git push origin master`)
