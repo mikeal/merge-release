@@ -58,7 +58,7 @@ const run = async () => {
   console.log(newVersion)
   exec(`git commit -a --amend --no-edit`)
   exec(`npm publish --access=public`)
-  exec(`git push`)
+  exec(`git push origin master`)
   await git.addTag(newVersion)
   await git.pushTags('origin')
 }
