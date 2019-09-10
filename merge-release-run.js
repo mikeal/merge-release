@@ -61,7 +61,7 @@ const run = async () => {
   console.log('new version:', newVersion)
   exec(`git commit -a --amend --no-edit`)
   exec(`git checkout master`)
-  exec(`git merge --squash tmp`)
+  exec(`git merge tmp`)
   exec(`git commit --amend -m "${newVersion} published"`)
   exec(`npm publish --access=public`)
   exec(`git push merge-release master`)
