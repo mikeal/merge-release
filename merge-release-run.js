@@ -62,7 +62,7 @@ const run = async () => {
   exec(`git commit -a --amend --no-edit`)
   exec(`git checkout master`)
   exec(`git merge tmp`)
-  exec(`git commit --amend -m "${newVersion} published"`)
+  exec(`git commit --amend -m "${newVersion}"`)
   exec(`npm publish --access=public`)
   exec(`git push merge-release master`)
   exec(`git tag ${newVersion}`)
