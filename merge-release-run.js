@@ -52,7 +52,7 @@ const run = async () => {
 
   const exec = str => process.stdout.write(execSync(str))
 
-  exec(`git branch tmp`)
+  exec(`git checkout -b tmp`)
 
   let current = execSync(`npm view ${pkg.name} version`).toString()
   exec(`npm version --allow-same-version=true --git-tag-version=false ${current} `)
