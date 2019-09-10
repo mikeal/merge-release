@@ -1,6 +1,6 @@
 {
   "name": "merge-release",
-  "version": "4.0.5",
+  "version": "0.0.0-dev",
   "description": "",
   "scripts": {
     "test": "standard"
