@@ -19,14 +19,13 @@ if [ -n "$NPM_AUTH_TOKEN" ]; then
   chmod 0600 "$NPM_CONFIG_USERCONFIG"
 fi
 
-sh -c "git checkout master"
-
 remote_repo="https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
 
 git config user.name "Merge Release"
 git config user.email "merge-release@users.noreply.github.com"
 git remote rm origin
 git remote add origin "${remote_repo}"
+git push -u origin
 
 if [ "$GITHUB_REPOSITORY" = "mikeal/merge-release" ]
 then

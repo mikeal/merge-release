@@ -52,15 +52,19 @@ const run = async () => {
 
   const exec = str => process.stdout.write(execSync(str))
 
+  exec(`git branch tmp`)
+
   let current = execSync(`npm view ${pkg.name} version`).toString()
   exec(`npm version --allow-same-version=true --git-tag-version=false ${current} `)
   console.log('current:', current, '/', 'version:', version)
   let newVersion = execSync(`npm version --git-tag-version=false ${version}`).toString()
   console.log('new version:', newVersion)
   exec(`git commit -a --amend --no-edit`)
+  exec(`git checkout master`)
+  exec(`git merge tmp`)
   exec(`npm publish --access=public`)
   exec(`git push origin master`)
-  await git.addTag(newVersion)
-  await git.pushTags('origin')
+  exec(`git tag ${newVersion}`)
+  exec(`git push origin --tags`)
 }
 run()
