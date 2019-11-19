@@ -20,3 +20,15 @@ you'll need to configure that workflow yourself. You can look to the
   * All other changes will increment the patch version.
 * Publish to npm using the configured token.
 * Push a tag for the new version to GitHub.
+
+### Additional Configuration
+
+* If your `package.json` is not in the repo's root directory, set `PACKAGE_PATH` env variable and the publish commands will be run from that package directory.
+  ```
+  - name: Publish
+      uses: mikeal/merge-release@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+        PACKAGE_PATH: ./packages/my-package
+  ```

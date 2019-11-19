@@ -12,7 +12,8 @@ const get = bent('json', process.env.NPM_REGISTRY_URL || 'https://registry.npmjs
 
 const event = JSON.parse(fs.readFileSync('/github/workflow/event.json').toString())
 
-let pkg = require(path.join(process.cwd(), 'package.json'))
+let packagePath = process.env.PACKAGE_PATH || process.cwd()
+let pkg = require(path.join(packagePath, 'package.json'))
 
 const run = async () => {
   if (!process.env.NPM_AUTH_TOKEN) throw new Error('Merge-release requires NPM_AUTH_TOKEN')
@@ -52,6 +53,7 @@ const run = async () => {
 
   const exec = str => process.stdout.write(execSync(str))
 
+  exec(`cd ${packagePath}`)
   let current = execSync(`npm view ${pkg.name} version`).toString()
   exec(`npm version --allow-same-version=true --git-tag-version=false ${current} `)
   console.log('current:', current, '/', 'version:', version)
