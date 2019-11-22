@@ -57,8 +57,13 @@ const run = async () => {
   console.log('current:', current, '/', 'version:', version)
   let newVersion = execSync(`npm version --git-tag-version=false ${version}`).toString()
   console.log('new version:', newVersion)
-  exec(`npm publish --access=public`)
-  exec(`git checkout package.json`) // cleanup
+
+  let access = ''
+  process.env.NPM_PRIVATE ? access = 'restricted' : 'public'
+    
+  exec(`npm publish --access=${access}`)
+
+  exec(`git checkout package.json`)
   exec(`git tag ${newVersion}`)
   exec(`git push merge-release --tags`)
 }
