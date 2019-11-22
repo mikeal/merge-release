@@ -9,7 +9,7 @@ you'll need to configured that workflow yourself. You can look to the
 ### Workflow
 
 * Check for the latest version number published to npm.
-* If you wish to privatly publish your package ensure you have set `NPM_PRIVATE` to `true`
+* If you wish privately publish your package please ensure you have set `NPM_PRIVATE` to `true`
 * Lookup all commits between the git commit that triggered the action and the latest publish.
   * If the package hasn't been published or the prior publish does not include a git hash, we'll
     only pull the commit data that triggered the action.
