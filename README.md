@@ -19,5 +19,4 @@ you'll need to configure that workflow yourself. You can look to the
     for most common commit metadata for feature additions: `"feat: new API"` and `"feature: new API"`.
   * All other changes will increment the patch version.
 * Publish to npm using the configured token.
-* Push the bumped npm version in package.json back into the repo.
 * Push a tag for the new version to GitHub.
