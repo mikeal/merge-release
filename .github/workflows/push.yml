@@ -1,17 +1,15 @@
 on: push
 name: Build and Publish
 jobs:
-  shellLint:
-    name: Shell Lint
+  all:
+    name: Build and Publish
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-    - name: Shell Lint
-      uses: actions/bin/shellcheck@master
-      with:
-        args: entrypoint.sh
+    - name: Shell Linter
+      uses: azohra/shell-linter@v0.2.0
     - name: Build Docker
-      uses: actions/docker/cli@master
+      uses: actions-hub/docker@v1.0.0
       with:
         args: build -t npm .
     - name: Cache node_modules
