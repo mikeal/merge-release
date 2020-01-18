@@ -14,20 +14,26 @@ jobs:
       uses: actions/docker/cli@master
       with:
         args: build -t npm .
+    - name: Cache node_modules
+      id: cache-modules
+      uses: actions/cache@v1
+      with:
+        path: node_modules
+        key: ${{ runner.OS }}-build-${{ hashFiles('package.json') }}
     - name: Build
-      uses: actions/npm@master
-      with:
-        args: install
+      if: steps.cache-modules.outputs.cache-hit != 'true'
+      run: npm install
     - name: Test
-      uses: actions/npm@master
-      with:
-        args: test
-    - name: Publish Filter
-      uses: actions/bin/filter@master
-      with:
-        args: branch master
+      run: npm test
     - name: Publish
+      if: github.ref == 'refs/heads/master'
       uses: mikeal/merge-release@master
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+    - uses: mikeal/bundle-size-action@master
+      if: github.ref == 'refs/heads/master'
+    - uses: mikeal/publish-to-github-action@master
+      if: github.ref == 'refs/heads/master'
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
