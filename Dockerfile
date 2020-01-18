@@ -11,7 +11,7 @@ LABEL com.github.actions.icon="package"
 LABEL com.github.actions.color="red"
 COPY LICENSE README.md /
 
-RUN apt-get update --no-cache=true && apt-get -y --no-install-recommends install git 
+RUN apt-get update && apt-get -y --no-install-recommends install git 
 
 COPY "entrypoint.sh" "/entrypoint.sh"
 ENTRYPOINT ["/entrypoint.sh"]
