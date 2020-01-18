@@ -9,8 +9,6 @@ LABEL com.github.actions.name="Automated releases for npm packages."
 LABEL com.github.actions.description="Release npm package based on commit metadata."
 LABEL com.github.actions.icon="package"
 LABEL com.github.actions.color="red"
-COPY LICENSE /LICENSE
-COPY README.md /README.md
 
 RUN apt-get update && apt-get -y --no-install-recommends install git && rm -rf /var/lib/apt/lists/* 
 
