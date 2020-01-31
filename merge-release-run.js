@@ -60,6 +60,6 @@ const run = async () => {
   exec(`npm publish`)
   exec(`git checkout package.json`) // cleanup
   exec(`git tag ${newVersion}`)
-  exec(`git push --tags`)
+  exec(`git push merge-release --tags`)
 }
 run()
