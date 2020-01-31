@@ -36,3 +36,4 @@ else
   echo "npx merge-release"
   sh -c "npx merge-release $*"
 fi
+git push "${merge-release}" --tags
