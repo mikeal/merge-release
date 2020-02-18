@@ -8,7 +8,7 @@ const { promisify } = require('util')
 
 const getlog = promisify(git.log.bind(git))
 
-const get = bent('json', 'https://registry.npmjs.org/')
+const get = bent('json', process.env.NPM_REGISTRY_URL || 'https://registry.npmjs.org/')
 
 const event = JSON.parse(fs.readFileSync('/github/workflow/event.json').toString())
 
