@@ -12,7 +12,13 @@ const get = bent('json', process.env.NPM_REGISTRY_URL || 'https://registry.npmjs
 
 const event = JSON.parse(fs.readFileSync('/github/workflow/event.json').toString())
 
-let pkg = require(path.join(process.cwd(), 'package.json'))
+const deployDir = path.join(process.cwd(), process.env.DEPLOY_DIR || './')
+const srcPackageDir = path.join(process.cwd(), process.env.SRC_PACKAGE_DIR || './')
+
+console.log('            using deploy directory : ' + deployDir);
+console.log('using src directory (package.json) : ' + srcPackageDir);
+
+let pkg = require(path.join(deployDir, 'package.json'))
 
 const run = async () => {
   if (!process.env.NPM_AUTH_TOKEN) throw new Error('Merge-release requires NPM_AUTH_TOKEN')
@@ -50,14 +56,15 @@ const run = async () => {
     version = 'minor'
   }
 
-  const exec = str => process.stdout.write(execSync(str))
+  const exec = (str, cwd) => process.stdout.write(execSync(str, {cwd}))
 
-  let current = execSync(`npm view ${pkg.name} version`).toString()
-  exec(`npm version --allow-same-version=true --git-tag-version=false ${current} `)
-  console.log('current:', current, '/', 'version:', version)
-  let newVersion = execSync(`npm version --git-tag-version=false ${version}`).toString()
+  let currentVersion = execSync(`npm view ${pkg.name} version`, {cwd: srcPackageDir}).toString()
+  exec(`npm version --allow-same-version=true --git-tag-version=false ${currentVersion} `, srcPackageDir)
+  console.log('current:', currentVersion, '/', 'version:', version)
+  let newVersion = execSync(`npm version --git-tag-version=false ${version}`, srcPackageDir).toString()
+  exec(`npm version --allow-same-version=true --git-tag-version=false ${newVersion} `, deployDir)
   console.log('new version:', newVersion)
-  exec(`npm publish`)
+  exec(`npm publish`, deployDir)
   exec(`git checkout package.json`) // cleanup
   exec(`git tag ${newVersion}`)
   /*
