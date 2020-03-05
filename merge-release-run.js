@@ -61,7 +61,7 @@ const run = async () => {
   let currentVersion = execSync(`npm view ${pkg.name} version`, {cwd: srcPackageDir}).toString()
   exec(`npm version --allow-same-version=true --git-tag-version=false ${currentVersion} `, srcPackageDir)
   console.log('current:', currentVersion, '/', 'version:', version)
-  let newVersion = execSync(`npm version --git-tag-version=false ${version}`, srcPackageDir).toString()
+  let newVersion = execSync(`npm version --git-tag-version=false ${version}`, {cwd: srcPackageDir}).toString()
   exec(`npm version --allow-same-version=true --git-tag-version=false ${newVersion} `, deployDir)
   console.log('new version:', newVersion)
   exec(`npm publish`, deployDir)
