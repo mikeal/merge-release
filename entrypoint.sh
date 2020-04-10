@@ -8,8 +8,7 @@ if [ -n "$NPM_AUTH_TOKEN" ]; then
   NPM_REGISTRY_URL="${NPM_REGISTRY_URL-registry.npmjs.org}"
   NPM_STRICT_SSL="${NPM_STRICT_SSL-true}"
   NPM_REGISTRY_SCHEME="https"
-  if ! $NPM_STRICT_SSL
-  then
+  if ! $NPM_STRICT_SSL; then
     NPM_REGISTRY_SCHEME="http"
   fi
 
@@ -29,12 +28,11 @@ git remote --verbose
 git show-ref # useful for debugging
 git branch --verbose
 
-if [ "$GITHUB_REPOSITORY" = "mikeal/merge-release" ]
-then
+if [ "$GITHUB_REPOSITORY" = "mikeal/merge-release" ]; then
   echo "node merge-release-run.js"
-  sh -c "node merge-release-run.js $*"
+  node merge-release-run.js "$@"
 else
   echo "npx merge-release"
-  sh -c "npx merge-release $*"
+  npx merge-release "$@"
 fi
 git push "${remote_repo}" --tags
