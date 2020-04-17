@@ -7,7 +7,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Shell Linter
-      uses: azohra/shell-linter@v0.2.0
+      uses: azohra/shell-linter@v0.3.0
     - name: Docker Lint
       uses: luke142367/Docker-Lint-Action@v1.0.0
       env:
