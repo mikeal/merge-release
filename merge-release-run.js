@@ -40,7 +40,7 @@ const run = async () => {
     }
   }
   if (!latest) {
-    messages = event.commits.map(commit => commit.message + '\n' + commit.body)
+    messages = (event.commits || []).map(commit => commit.message + '\n' + commit.body)
   }
 
   let version = 'patch'
