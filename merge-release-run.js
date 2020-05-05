@@ -15,8 +15,8 @@ const event = JSON.parse(fs.readFileSync('/github/workflow/event.json').toString
 const deployDir = path.join(process.cwd(), process.env.DEPLOY_DIR || './')
 const srcPackageDir = path.join(process.cwd(), process.env.SRC_PACKAGE_DIR || './')
 
-console.log('            using deploy directory : ' + deployDir);
-console.log('using src directory (package.json) : ' + srcPackageDir);
+console.log('            using deploy directory : ' + deployDir)
+console.log('using src directory (package.json) : ' + srcPackageDir)
 
 let pkg = require(path.join(deployDir, 'package.json'))
 
@@ -56,12 +56,12 @@ const run = async () => {
     version = 'minor'
   }
 
-  const exec = (str, cwd) => process.stdout.write(execSync(str, {cwd}))
+  const exec = (str, cwd) => process.stdout.write(execSync(str, { cwd }))
 
-  let currentVersion = execSync(`npm view ${pkg.name} version`, {cwd: srcPackageDir}).toString()
+  let currentVersion = execSync(`npm view ${pkg.name} version`, { cwd: srcPackageDir }).toString()
   exec(`npm version --allow-same-version=true --git-tag-version=false ${currentVersion} `, srcPackageDir)
   console.log('current:', currentVersion, '/', 'version:', version)
-  let newVersion = execSync(`npm version --git-tag-version=false ${version}`, {cwd: srcPackageDir}).toString()
+  let newVersion = execSync(`npm version --git-tag-version=false ${version}`, { cwd: srcPackageDir }).toString()
   exec(`npm version --allow-same-version=true --git-tag-version=false ${newVersion} `, deployDir)
   console.log('new version:', newVersion)
   exec(`npm publish`, deployDir)
