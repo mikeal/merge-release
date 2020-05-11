@@ -2,7 +2,15 @@
 
 set -e
 
-if [ -n "$NPM_AUTH_TOKEN" ]; then
+# Respect NPM_CONFIG_USERCONFIG if it is provided, default to $HOME/.npmrc
+NPM_CONFIG_USERCONFIG="${NPM_CONFIG_USERCONFIG-"$HOME/.npmrc"}"
+
+if [ -n "$NPM_CUSTOM_NPMRC" ]; then
+  # Use a fully-formed npmrc file if provided
+  echo "$NPM_CUSTOM_NPMRC" > "$NPM_CONFIG_USERCONFIG"
+
+  chmod 0600 "$NPM_CONFIG_USERCONFIG"
+elif [ -n "$NPM_AUTH_TOKEN" ]; then
   # Respect NPM_CONFIG_USERCONFIG if it is provided, default to $HOME/.npmrc
   NPM_CONFIG_USERCONFIG="${NPM_CONFIG_USERCONFIG-"$HOME/.npmrc"}"
   NPM_REGISTRY_URL="${NPM_REGISTRY_URL-registry.npmjs.org}"
