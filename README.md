@@ -20,3 +20,28 @@ you'll need to configure that workflow yourself. You can look to the
   * All other changes will increment the patch version.
 * Publish to npm using the configured token.
 * Push a tag for the new version to GitHub.
+
+
+### Configuration
+
+You can configure some aspects of merge-release action by passing some environmental variables.
+
+* **GITHUB_TOKEN (required)**
+  * Github token to allow tagging the version.
+* **NPM_AUTH_TOKEN (required)**
+  * NPM Auth Token to publish to NPM, read [here](https://docs.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets) how to setup it as a secret.
+* **DEPLOY_DIR**
+  * The path where the dist `package.json` is to run npm publish. Defaults to the root dir.
+* **SRC_PACKAGE_DIR**
+  * The path where the src package.json is found. Defaults to the root dir.
+* **NPM_REGISTRY_URL**
+  * NPM Registry URL to use. defaults to: `https://registry.npmjs.org/`
+  
+```yaml
+- uses: mikeal/merge-release@master
+  env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+      DEPLOY_DIR: my/deploy/dir
+      SRC_PACKAGE_DIR: my/src/package
+```
