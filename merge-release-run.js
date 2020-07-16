@@ -35,8 +35,12 @@ const run = async () => {
     if (latest.gitHead === process.env.GITHUB_SHA) return console.log('SHA matches latest release, skipping.')
     if (latest.gitHead) {
       try {
-        let logs = await getlog({ from: latest.gitHead, to: process.env.GITHUB_SHA })
+        const allowPath = process.env.ALLOW_PATH
+        let logs = await getlog({ from: latest.gitHead, to: process.env.GITHUB_SHA, file: allowPath })
         messages = logs.all.map(r => r.message + '\n' + r.body)
+        if (allowPath && messages.length === 0) {
+          return console.log(`No commits founds within path: ${allowPath}, skipping.`)
+        }
       } catch (e) {
         latest = null
       }
