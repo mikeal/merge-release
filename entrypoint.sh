@@ -36,11 +36,7 @@ git remote --verbose
 git show-ref # useful for debugging
 git branch --verbose
 
-if [ "$GITHUB_REPOSITORY" = "mikeal/merge-release" ]; then
-  echo "node merge-release-run.js"
-  node merge-release-run.js "$@"
-else
-  echo "npx merge-release"
-  npx merge-release "$@"
-fi
+# Dependencies are installed at build time
+node /src/merge-release-run.js
+
 git push "${remote_repo}" --tags
