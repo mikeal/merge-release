@@ -1,0 +1,7 @@
+*
+
+!./LICENSE
+!./README.md
+!./entrypoint.sh
+!./src
+!./src/*

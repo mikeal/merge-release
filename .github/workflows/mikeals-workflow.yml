@@ -17,34 +17,26 @@ jobs:
       id: cache-modules
       uses: actions/cache@v1
       with:
-        path: node_modules
+        path: src/node_modules
         key: ${{ matrix.node-version }}-${{ runner.OS }}-build-${{ hashFiles('package.json') }}
     - name: Build
       if: steps.cache-modules.outputs.cache-hit != 'true'
+      working-directory: src
       run: npm install
     - name: Test
+      working-directory: src
       run: npm test
   publish:
-    name: Publish
+    name: Publish (Github Release)
     needs: test
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.ref == 'refs/heads/master'
     steps:
-    - uses: actions/checkout@v2
-    - name: Cache node_modules
-      id: cache-modules
-      uses: actions/cache@v1
-      with:
-        path: node_modules
-        key: 12.x-${{ runner.OS }}-build-${{ hashFiles('package.json') }}
-    - name: Build
-      if: steps.cache-modules.outputs.cache-hit != 'true'
-      run: npm install
-    - name: Test
-      run: npm test
-
-    - name: Publish
-      uses: mikeal/merge-release@master
+    - name: Checkout Code
+      uses: actions/checkout@v2
+    - name: Create Github Release Tag
+      uses: rymndhng/release-on-push-action@v0.15.0
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+      with:
+        bump_version_scheme: minor
