@@ -64,7 +64,12 @@ const run = async () => {
   let newVersion = execSync(`npm version --git-tag-version=false ${version}`, { cwd: srcPackageDir }).toString()
   exec(`npm version --allow-same-version=true --git-tag-version=false ${newVersion} `, deployDir)
   console.log('new version:', newVersion)
-  exec(`npm publish`, deployDir)
+
+  if (pkg.scripts && pkg.scripts.publish) {
+    exec(`npm run publish`, deployDir)
+  } else {
+    exec(`npm publish`, deployDir)
+  }
   exec(`git checkout package.json`) // cleanup
   exec(`git tag ${newVersion}`)
   exec(`echo "::set-output name=version::${newVersion}"`) // set action event.{STEP_ID}.output.version

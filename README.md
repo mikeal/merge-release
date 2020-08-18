@@ -36,7 +36,9 @@ You can configure some aspects of merge-release action by passing some environme
   * The path where the src package.json is found. Defaults to the root dir.
 * **NPM_REGISTRY_URL**
   * NPM Registry URL to use. defaults to: `https://registry.npmjs.org/`
-  
+
+`merge-release` will use `npm publish` unless you've defined a `publish` script in your `package.json`.
+
 ```yaml
 - uses: mikeal/merge-release@master
   env:
