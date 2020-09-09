@@ -67,11 +67,16 @@ const run = async () => {
     version = 'minor'
   }
 
+  const setVersion = version => {
+    const str = `jq '.version="${version}"' package.json > package.json`
+    return exec(str)
+  }
+
   let currentVersion = execSync(`npm view ${pkg.name} version`, { cwd: srcPackageDir }).toString()
-  exec(`npm version --allow-same-version=true --git-tag-version=false ${currentVersion} `, srcPackageDir)
+  setVersion(currentVersion)
   console.log('current:', currentVersion, '/', 'version:', version)
   let newVersion = execSync(`npm version --git-tag-version=false ${version}`, { cwd: srcPackageDir }).toString()
-  exec(`npm version --allow-same-version=true --git-tag-version=false ${newVersion} `, deployDir)
+  setVersion(newVersion)
   console.log('new version:', newVersion)
 
   if (pkg.scripts && pkg.scripts.publish) {
