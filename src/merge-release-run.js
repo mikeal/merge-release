@@ -6,12 +6,12 @@ const git = require('simple-git')()
 const { execSync, spawnSync } = require('child_process')
 const { promisify } = require('util')
 
-const exec = str => {
+const exec = (str, cwd) => {
   const [cmd, ...args] = str.split(' ')
-  const ret = spawnSync(cmd, args, { stdio: 'inherit' })
+  const ret = spawnSync(cmd, args, { cwd, stdio: 'inherit' })
   if (ret.status) {
     console.error(ret)
-    console.error(`Error: ${cmd} returned non-zero exit code`)
+    console.error(`Error: ${str} returned non-zero exit code`)
     process.exit(ret.status)
   }
   return ret
