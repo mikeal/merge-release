@@ -6,6 +6,17 @@ const git = require('simple-git')()
 const { execSync } = require('child_process')
 const { promisify } = require('util')
 
+const exec = str => {
+  const [cmd, ...args] = str.split(' ')
+  const ret = spawnSync(cmd, args, { stdio: 'inherit' })
+  if (ret.status) {
+    console.error(ret)
+    console.error(`Error: ${cmd} returned non-zero exit code`)
+    process.exit(ret.status)
+  }
+  return ret
+}
+
 const getlog = promisify(git.log.bind(git))
 
 const get = bent('json', process.env.NPM_REGISTRY_URL || 'https://registry.npmjs.org/')
@@ -55,8 +66,6 @@ const run = async () => {
   } else if (messages.map(message => message.toLowerCase().startsWith('feat')).includes(true)) {
     version = 'minor'
   }
-
-  const exec = (str, cwd) => process.stdout.write(execSync(str, { cwd }))
 
   let currentVersion = execSync(`npm view ${pkg.name} version`, { cwd: srcPackageDir }).toString()
   exec(`npm version --allow-same-version=true --git-tag-version=false ${currentVersion} `, srcPackageDir)
