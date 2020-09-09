@@ -69,7 +69,6 @@ const run = async () => {
 
   const setVersion = version => {
     const json = execSync(`jq '.version="${version}"' package.json`, { cwd: srcPackageDir })
-    console.log({json, f: path.join(srcPackageDir, 'package.json')})
     fs.writeFileSync(path.join(srcPackageDir, 'package.json'), json)
   }
 
@@ -77,7 +76,7 @@ const run = async () => {
   setVersion(currentVersion)
   console.log('current:', currentVersion, '/', 'version:', version)
   let newVersion = execSync(`npm version --git-tag-version=false ${version}`, { cwd: srcPackageDir }).toString()
-  setVersion(newVersion)
+  setVersion(newVersion.slice(1))
   console.log('new version:', newVersion)
 
   if (pkg.scripts && pkg.scripts.publish) {
