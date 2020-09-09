@@ -3,7 +3,7 @@ const fs = require('fs')
 const path = require('path')
 const bent = require('bent')
 const git = require('simple-git')()
-const { execSync } = require('child_process')
+const { execSync, spawnSync } = require('child_process')
 const { promisify } = require('util')
 
 const exec = str => {
