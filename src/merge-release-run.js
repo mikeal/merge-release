@@ -69,6 +69,7 @@ const run = async () => {
 
   const setVersion = version => {
     const str = `jq '.version="${version}"' package.json > package.json`
+    console.log({str})
     return exec(str)
   }
 
