@@ -76,7 +76,7 @@ const run = async () => {
   setVersion(currentVersion)
   console.log('current:', currentVersion, '/', 'version:', version)
   let newVersion = execSync(`npm version --git-tag-version=false ${version}`, { cwd: srcPackageDir }).toString()
-  setVersion(newVersion.slice(1))
+  setVersion(newVersion.slice(1).replace(/(\r\n|\n|\r)/gm, ""))
   console.log('new version:', newVersion)
 
   if (pkg.scripts && pkg.scripts.publish) {
