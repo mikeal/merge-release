@@ -69,6 +69,7 @@ const run = async () => {
 
   const setVersion = version => {
     const json = execSync(`jq '.version="${version}"' package.json`, { cwd: srcPackageDir })
+    console.log({json, f: path.join(srcPackageDir, 'package.json')})
     fs.writeFileSync(path.join(srcPackageDir, 'package.json'), json)
   }
 
