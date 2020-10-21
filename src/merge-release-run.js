@@ -70,6 +70,11 @@ const run = async () => {
   const setVersion = version => {
     const json = execSync(`jq '.version="${version}"' package.json`, { cwd: srcPackageDir })
     fs.writeFileSync(path.join(srcPackageDir, 'package.json'), json)
+
+    if (deployDir !== './') {
+      const deployJson = execSync(`jq '.version="${version}"' package.json`, { cwd: deployDir })
+      fs.writeFileSync(path.join(deployDir, 'package.json'), deployJson)
+    }
   }
 
   let currentVersion = execSync(`npm view ${pkg.name} version`, { cwd: srcPackageDir }).toString()
