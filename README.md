@@ -13,7 +13,7 @@ you'll need to configure that workflow yourself. You can look to the
   * If the package hasn't been published or the prior publish does not include a git hash, we'll
     only pull the commit data that triggered the action.
 * Based on the commit messages, increment the version from the lastest release.
-  * If the string "BREAKING CHANGE" is found anywhere in any of the commit messages or descriptions the major 
+  * If the strings "BREAKING CHANGE" or "!:" are found anywhere in any of the commit messages or descriptions the major 
     version will be incremented.
   * If a commit message begins with the string "feat" then the minor version will be increased. This works
     for most common commit metadata for feature additions: `"feat: new API"` and `"feature: new API"`.
