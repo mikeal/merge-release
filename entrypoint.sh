@@ -28,6 +28,7 @@ fi
 
 # initialize git
 remote_repo="https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+git config --global --add safe.directory "/github/workspace"
 git config http.sslVerify false
 git config user.name "Merge Release"
 git config user.email "actions@users.noreply.github.com"
