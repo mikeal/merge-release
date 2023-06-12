@@ -80,7 +80,7 @@ const run = async () => {
   let currentVersion = execSync(`npm view ${pkg.name} version`, { cwd: srcPackageDir }).toString()
   setVersion(currentVersion)
   console.log('current:', currentVersion, '/', 'version:', version)
-  let newVersion = execSync(`npm version --git-tag-version=false ${version}`, { cwd: srcPackageDir }).toString()
+  let newVersion = execSync(`npm version --json=true --git-tag-version=false ${version}`, { cwd: srcPackageDir }).toString()
   newVersion = newVersion.replace(/(\r\n|\n|\r)/gm, '')
   setVersion(newVersion.slice(1))
   console.log('new version:', newVersion)
